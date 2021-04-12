@@ -19,9 +19,14 @@ TaskList.defaultProps = {
 };
 
 function TaskList(props) {
-  const { taskList, onDeleteTask, onUpdateTask, onToggle, keySearch, keySort } = props;
-
-  console.log(keySort);
+  const {
+    taskList,
+    onDeleteTask,
+    onUpdateTask,
+    onToggle,
+    keySearch,
+    keySort,
+  } = props;
 
   const onDelete = (task) => {
     if (!onDeleteTask) return;
@@ -38,8 +43,16 @@ function TaskList(props) {
     onToggle(task);
   };
 
-  let tasks = taskList.filter((task)=>{
-       return task.name.toLowerCase().includes(keySearch);
+  let taskSort = taskList.sort((x, y) => {
+    if(keySort=='ẩn') return x.status- y.status;
+    if(keySort=='kích hoạt') return y.status- x.status;
+    if(keySort=='ab') return x.name.localeCompare(y.name);
+  });
+
+  console.log(taskSort);
+
+  let tasks = taskSort.filter((task) => {
+    return task.name.toLowerCase().includes(keySearch);
   });
 
   let element = tasks.map((task, index) => {
@@ -54,7 +67,6 @@ function TaskList(props) {
       ></ItemList>
     );
   });
-
 
   return (
     <div className="container">
