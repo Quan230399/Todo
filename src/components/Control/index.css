@@ -1,0 +1,8 @@
+.search-sort{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.control_form{
+    margin-bottom: 20px;
+}

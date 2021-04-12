@@ -1,0 +1,35 @@
+.table-bordered {
+  border: 1px solid #ddd;
+}
+
+table{
+    width: 100%;
+    /* color: #8a6d3b; */
+    border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid  #ddd;
+  text-align: center;
+  padding: 10px;
+}
+
+.text-center{
+  text-align: center;
+} 
+
+.form-list{
+    text-align: center;
+    display: block;
+    width: 90%;
+    height: 34px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 10px 10px;
+}
