@@ -39,7 +39,7 @@ function TaskFrom(props) {
   const handleChange = (e) => {
     let target = e.target;
     let name = target.name;
-    let value = target.value;
+    let value = target.value=='false'?false:target.value;
     setvalueForm({
       ...valueForm,
       [name]: value,
