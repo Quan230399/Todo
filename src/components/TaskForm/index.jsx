@@ -23,7 +23,6 @@ function TaskFrom(props) {
   });
 
   const { onCancelForm, onSubmit, Update } = props;
-  
 
   useEffect(() => {
     if (Update && Update.id) {
@@ -31,15 +30,15 @@ function TaskFrom(props) {
       setvalueForm({
         id: Update.id,
         name: Update.name,
-        status: Update.status  
+        status: Update.status,
       });
     }
-  }, [Update])
+  }, [Update]);
 
   const handleChange = (e) => {
     let target = e.target;
     let name = target.name;
-    let value = target.value=='false'?false:target.value;
+    let value = target.value == "false" ? false : target.value;
     setvalueForm({
       ...valueForm,
       [name]: value,
@@ -100,7 +99,6 @@ function TaskFrom(props) {
             >
               <option value={true}>Kích Hoạt</option>
               <option value={false}>Ẩn</option>
-             
             </select>
             <br></br>
             <div className="text-center">
