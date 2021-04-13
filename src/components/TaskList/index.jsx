@@ -44,9 +44,11 @@ function TaskList(props) {
   };
 
   let taskSort = taskList.sort((x, y) => {
-    if(keySort=='ẩn') return x.status- y.status;
-    if(keySort=='kích hoạt') return y.status- x.status;
-    if(keySort=='ab') return x.name.localeCompare(y.name);
+    if(keySort==='ẩn') return x.status- y.status;
+    if(keySort==='kích hoạt') return y.status- x.status;
+    if(keySort==='az') return x.name.localeCompare(y.name);
+    if(keySort==='za') return y.name.localeCompare(x.name);
+    return 0;
   });
 
   console.log(taskSort);

@@ -38,7 +38,7 @@ function TaskFrom(props) {
   const handleChange = (e) => {
     let target = e.target;
     let name = target.name;
-    let value = target.value == "false" ? false : target.value;
+    let value = target.value === "false" ? false : target.value;
     setvalueForm({
       ...valueForm,
       [name]: value,
@@ -92,7 +92,7 @@ function TaskFrom(props) {
             </div>
             <label>Trạng Thái :</label>
             <select
-              className="form-control"
+              className="form-control"  
               name="status"
               value={valueForm.status}
               onChange={handleChange}
@@ -103,7 +103,8 @@ function TaskFrom(props) {
             <br></br>
             <div className="text-center">
               <button type="submit" className="btn btn-warning">
-                <span className="fa fa-plus mr-5"></span>Lưu Lại
+                <span className="fa fa-plus mr-5"></span>
+                {valueForm.id===''?'Thêm':'Lưu lại'}
               </button>
               <button
                 type="button"

@@ -28,7 +28,9 @@ function Sort(props) {
           <div className="dropdown-content">
             <a href="#"  name='ẩn' onClick={onSortKey}>Ẩn</a>
             <a href="#"  name='kích hoạt' onClick={onSortKey}>Kích hoạt</a>
-            <a href="#" name='ab' onClick={onSortKey}>A-Z</a>
+            <hr></hr>
+            <a href="#" name='az' onClick={onSortKey}>A-Z</a>
+            <a href="#" name='za' onClick={onSortKey}>Z-A</a>
           </div>
         </div>
       </div>

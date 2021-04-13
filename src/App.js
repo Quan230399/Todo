@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import Control from './components/Control';
-import Header from './components/Header';
-import TaskFrom from './components/TaskForm';
-import TaskList from './components/TaskList';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import Control from "./components/Control";
+import Header from "./components/Header";
+import TaskFrom from "./components/TaskForm";
+import TaskList from "./components/TaskList";
+import "./App.css";
 
-var randomstring = require('randomstring');
+var randomstring = require("randomstring");
 
 function App() {
   const [toggle, settoggle] = useState(false);
   const [taskList, settaskList] = useState([]);
   const [taskItem, settaskItem] = useState();
-  const [itemUpdate, setitemUpdate] = useState();
-  const [Key, setKey] = useState('');
-  const [keySort, setkeySort] = useState('');
+  const [itemUpdate, setitemUpdate] = useState({});
+  const [Key, setKey] = useState("");
+  const [keySort, setkeySort] = useState("");
 
   const findIndex = (id) => {
     let tasks = taskList;
@@ -24,12 +24,9 @@ function App() {
     return result;
   };
 
-  // useEffect(() => {}, [taskItem]);
-  // useEffect(() => {}, [toggle]);
-
   useEffect(() => {
-    if (localStorage && localStorage.getItem('tasks')) {
-      let tasks = JSON.parse(localStorage.getItem('tasks'));
+    if (localStorage && localStorage.getItem("tasks")) {
+      let tasks = JSON.parse(localStorage.getItem("tasks"));
       settaskList(tasks);
     }
   }, []);
@@ -44,31 +41,79 @@ function App() {
     setitemUpdate();
   };
 
+  const Slugs = (name) => {
+    let slug = name.toLowerCase();
+
+    //Đổi ký tự có dấu thành không dấu
+    slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, "a");
+    slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, "e");
+    slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, "i");
+    slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, "o");
+    slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, "u");
+    slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, "y");
+    slug = slug.replace(/đ/gi, "d");
+    //Xóa các ký tự đặt biệt
+    slug = slug.replace(
+      /\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi,
+      ""
+    );
+    //Đổi khoảng trắng thành ký tự gạch ngang
+    slug = slug.replace(/ /gi, "-");
+    //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
+    //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
+    slug = slug.replace(/\-\-\-\-\-/gi, "-");
+    slug = slug.replace(/\-\-\-\-/gi, "-");
+    slug = slug.replace(/\-\-\-/gi, "-");
+    slug = slug.replace(/\-\-/gi, "-");
+    //Xóa các ký tự gạch ngang ở đầu và cuối
+    slug = "@" + slug + "@";
+    slug = slug.replace(/\@\-|\-\@|\@/gi, "");
+
+    return slug;
+  };
+
+  const tasksListSlugs = taskList.map((task, index) => {
+    return Slugs(task.name);
+  });
+
   const onSubmit = (data) => {
     let task = taskList;
-    if (data.id === '') {
-      data.id = randomstring.generate(7);
-      task.push(data);
-      settaskList(task);
-      settaskItem(data);
-
-      localStorage.setItem('tasks', JSON.stringify(taskList));
+    if (data.id === "") {
+      // console.log(data.name);
+      if (!data.name == "") {
+        if (tasksListSlugs.indexOf(Slugs(data.name))===-1) {
+          data.id = randomstring.generate(7);
+          task.push(data);
+          settaskList(task);
+          settaskItem(data);
+          alert("Thêm thành công");
+          localStorage.setItem("tasks", JSON.stringify(taskList));
+          onCancel();
+        } else {
+          alert("Tên công việc đã tồn tại");
+        }
+      } else {
+        alert("Bạn chưa nhập tên công việc");
+      }
     } else {
       let index = findIndex(data.id);
       let tasks = taskList;
       tasks[index] = data;
       settaskList(tasks);
-      localStorage.setItem('tasks', JSON.stringify(taskList));
+      localStorage.setItem("tasks", JSON.stringify(taskList));
+      alert("Chỉnh sửa thành công");
+      onCancel();
     }
-    onCancel();
   };
+
+  // console.log(tasksListSlugs);
 
   const onToggleStatus = (task) => {
     let index = findIndex(task.id);
     let tasks = taskList;
     tasks[index].status = !task.status;
     settaskList(tasks);
-    localStorage.setItem('tasks', JSON.stringify(taskList));
+    localStorage.setItem("tasks", JSON.stringify(taskList));
   };
 
   const onDelete = (task) => {
@@ -80,7 +125,7 @@ function App() {
     }
     settaskList(tasks);
     settaskItem(task);
-    localStorage.setItem('tasks', JSON.stringify(taskList));
+    localStorage.setItem("tasks", JSON.stringify(taskList));
   };
 
   const onUpdate = (task) => {
@@ -91,6 +136,7 @@ function App() {
 
   const onSearch = (key) => {
     setKey(key);
+    console.log(key);
   };
 
   const onSort = (key) => {
@@ -112,10 +158,10 @@ function App() {
             ></TaskFrom>
           </div>
         ) : (
-          ''
+          ""
         )}
 
-        <div className={toggle ? 'task-list-66' : 'task-list-100'}>
+        <div className={toggle ? "task-list-66" : "task-list-100"}>
           <Control
             onToggleForm={onToggle}
             onSearch={onSearch}

@@ -21,7 +21,7 @@ function AddTask(props) {
 
     return (
         <div>
-            <a className='btn btn-danger' onClick={onToggleForm}> Thêm công việc</a>
+            <button className='btn btn-danger' onClick={onToggleForm}> Thêm công việc</button>
         </div>
     );
 }

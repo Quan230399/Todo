@@ -1,23 +1,32 @@
-
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import "./index.css";
 
 Search.propTypes = {
-  onSearch: PropTypes.func
+  onSearch: PropTypes.func,
 };
 
-Search.defaultProps={
+Search.defaultProps = {
   onSearch: null,
-}
+};
 
 function Search(props) {
+  const { onSearch } = props;
 
-  const {onSearch}= props;
+  const typingTimeoutRef = useRef(null);
 
-  const handleChange=(e)=>{
-    // console.log(e.target.value);
-    onSearch(e.target.value);
+  const handleChange = (e) => {
+    // console.log(e.target.value)
+    const value = e.target.value;
+    if (!onSearch) return;
+
+    if(typingTimeoutRef.current){
+      clearTimeout(typingTimeoutRef.current);
+    }
+
+    typingTimeoutRef.current = setTimeout(() => {
+      onSearch(value);
+    }, 300);
   };
 
   return (

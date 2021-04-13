@@ -1,5 +1,6 @@
 import React, {  useState } from "react";
 import PropTypes from "prop-types";
+import './index.css';
 
 ItemList.propTypes = {
   task: PropTypes.object.isRequired,
@@ -24,7 +25,12 @@ function ItemList(props) {
   const onDelete = (task) => {
     // console.log(task.id);
     if (!onDeleteItem) return;
-    onDeleteItem(task);
+    let conf = window.confirm('Bạn có chắc muốn xóa không');
+    if (conf == true) {
+      onDeleteItem(task);
+    } else {
+    }
+    
   };
 
   const onUpdate = (task) => {
@@ -41,7 +47,7 @@ function ItemList(props) {
   const status = (task) => {
     return (
       <span>
-        {task.status == true || task.status == "true" ? "Kích hoạt" : "Ẩn"}
+        {task.status === true || task.status === "true" ? <span className='success'>Kích hoạt</span> : <span className='waring'>Ẩn</span>}
       </span>
     );
   };
