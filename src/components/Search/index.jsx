@@ -3,14 +3,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./index.css";
 
-Search.propTypes = {
-  onSearch: PropTypes.func
-};
-
-Search.defaultProps={
-  onSearch: null,
-}
-
 function Search(props) {
 
   const {onSearch}= props;
@@ -29,13 +21,21 @@ function Search(props) {
           placeholder="Nhập từ khóa"
           name="keywork"
           onChange={handleChange}
-        ></input>
+         />
         <span className="input-btn">
-          <a className="btn-search btn btn-danger">Tìm kiếm</a>
+          <button type="button" className="btn-search btn btn-danger">Tìm kiếm</button>
         </span>
       </div>
     </div>
   );
+}
+
+Search.propTypes = {
+  onSearch: PropTypes.func
+};
+
+Search.defaultProps={
+  onSearch: null,
 }
 
 export default Search;

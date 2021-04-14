@@ -1,17 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-AddTask.propTypes = {
-    onToggle: PropTypes.func,
-    
-};
-
-AddTask.defaultProps={
-    onToggle: null,
-}
 
 function AddTask(props) {
-    
+
     const {onToggle}=props;
 
     const onToggleForm=()=>{
@@ -21,9 +13,19 @@ function AddTask(props) {
 
     return (
         <div>
-            <a className='btn btn-danger' onClick={onToggleForm}> Thêm công việc</a>
+            <button type="button" className='btn btn-danger' onClick={onToggleForm}> Thêm công việc</button>
         </div>
     );
+}
+
+
+AddTask.propTypes = {
+  onToggle: PropTypes.func,
+
+};
+
+AddTask.defaultProps={
+  onToggle: null,
 }
 
 export default AddTask;

@@ -5,31 +5,27 @@ import TaskFrom from './components/TaskForm';
 import TaskList from './components/TaskList';
 import './App.css';
 
-var randomstring = require('randomstring');
+const randomstring = require('randomstring');
 
 function App() {
   const [toggle, settoggle] = useState(false);
   const [taskList, settaskList] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [taskItem, settaskItem] = useState();
   const [itemUpdate, setitemUpdate] = useState();
   const [Key, setKey] = useState('');
   const [keySort, setkeySort] = useState('');
 
-  const findIndex = (id) => {
-    let tasks = taskList;
-    let result = -1;
-    tasks.forEach((task, index) => {
-      if (id === task.id) return (result = index);
-    });
-    return result;
+  const findIn = (id) => {
+    // console.log(id);
+    const tasks = taskList.map((task)=>task.id);
+    return tasks.indexOf(id);
   };
 
-  // useEffect(() => {}, [taskItem]);
-  // useEffect(() => {}, [toggle]);
 
   useEffect(() => {
     if (localStorage && localStorage.getItem('tasks')) {
-      let tasks = JSON.parse(localStorage.getItem('tasks'));
+      const tasks = JSON.parse(localStorage.getItem('tasks'));
       settaskList(tasks);
     }
   }, []);
@@ -45,17 +41,16 @@ function App() {
   };
 
   const onSubmit = (data) => {
-    let task = taskList;
+    const tasks = taskList;
     if (data.id === '') {
-      data.id = randomstring.generate(7);
-      task.push(data);
-      settaskList(task);
-      settaskItem(data);
+      const myData = {...data, id: randomstring.generate(7)}
+      tasks.push(myData);
+      settaskList(tasks);
+      settaskItem(myData);
 
       localStorage.setItem('tasks', JSON.stringify(taskList));
     } else {
-      let index = findIndex(data.id);
-      let tasks = taskList;
+      const index = findIn(data.id);
       tasks[index] = data;
       settaskList(tasks);
       localStorage.setItem('tasks', JSON.stringify(taskList));
@@ -64,17 +59,17 @@ function App() {
   };
 
   const onToggleStatus = (task) => {
-    let index = findIndex(task.id);
-    let tasks = taskList;
+    const index = findIn(task.id);
+    const tasks = taskList;
     tasks[index].status = !task.status;
     settaskList(tasks);
     localStorage.setItem('tasks', JSON.stringify(taskList));
   };
 
   const onDelete = (task) => {
-    // console.log(findIndex(task.id));
-    let index = findIndex(task.id);
-    let tasks = taskList;
+    const index = findIn(task.id);
+    console.log(index);
+    const tasks = taskList;
     if (index !== -1) {
       tasks.splice(index, 1);
     }
@@ -84,8 +79,8 @@ function App() {
   };
 
   const onUpdate = (task) => {
-    let taskItem = task;
-    setitemUpdate(taskItem);
+    const taskItemUp = task;
+    setitemUpdate(taskItemUp);
     settoggle(true);
   };
 
@@ -100,7 +95,7 @@ function App() {
   return (
     <div className="main">
       <div className="header-title">
-        <Header></Header>
+        <Header />
       </div>
       <div className="task">
         {toggle ? (
@@ -109,7 +104,7 @@ function App() {
               onSubmit={onSubmit}
               onCancelForm={onCancel}
               Update={itemUpdate}
-            ></TaskFrom>
+             />
           </div>
         ) : (
           ''
@@ -120,7 +115,7 @@ function App() {
             onToggleForm={onToggle}
             onSearch={onSearch}
             onSort={onSort}
-          ></Control>
+           />
           <TaskList
             taskList={taskList}
             onDeleteTask={onDelete}
@@ -128,10 +123,10 @@ function App() {
             onToggle={onToggleStatus}
             keySearch={Key}
             keySort={keySort}
-          ></TaskList>
-          <br></br>
-          <br></br>
-          <br></br>
+           />
+          <br />
+          <br />
+          <br />
         </div>
       </div>
     </div>

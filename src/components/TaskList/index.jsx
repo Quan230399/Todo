@@ -3,21 +3,6 @@ import PropTypes from "prop-types";
 import "./index.css";
 import ItemList from "../ListItem";
 
-TaskList.propTypes = {
-  taskList: PropTypes.array.isRequired,
-  onDeleteTask: PropTypes.func,
-  onUpdateTask: PropTypes.func,
-  onToggle: PropTypes.func,
-  keySearch: PropTypes.string.isRequired,
-  keySort: PropTypes.string.isRequired,
-};
-
-TaskList.defaultProps = {
-  onDeleteTask: null,
-  onUpdateTask: null,
-  onToggle: null,
-};
-
 function TaskList(props) {
   const {
     taskList,
@@ -43,20 +28,16 @@ function TaskList(props) {
     onToggle(task);
   };
 
-  let taskSort = taskList.sort((x, y) => {
-    if(keySort=='ẩn') return x.status- y.status;
-    if(keySort=='kích hoạt') return y.status- x.status;
-    if(keySort=='ab') return x.name.localeCompare(y.name);
+  const taskSort = taskList.sort((x, y) => {
+    if(keySort==='ẩn') return x.status- y.status;
+    if(keySort==='kích hoạt') return y.status- x.status;
+    if(keySort==='ab') return x.name.localeCompare(y.name);
+    return 0;
   });
 
-  console.log(taskSort);
+  const tasks = taskSort.filter((task) => task.name.toLowerCase().includes(keySearch));
 
-  let tasks = taskSort.filter((task) => {
-    return task.name.toLowerCase().includes(keySearch);
-  });
-
-  let element = tasks.map((task, index) => {
-    return (
+  const element = tasks.map((task, index) => (
       <ItemList
         task={task}
         index={index}
@@ -64,9 +45,8 @@ function TaskList(props) {
         onDeleteItem={onDelete}
         onUpdateItem={onUpdate}
         onToggleStatus={onToggleStatus}
-      ></ItemList>
-    );
-  });
+       />
+    ));
 
   return (
     <div className="container">
@@ -92,5 +72,20 @@ function TaskList(props) {
     </div>
   );
 }
+
+TaskList.propTypes = {
+  taskList: PropTypes.instanceOf(Array).isRequired,
+  onDeleteTask: PropTypes.func,
+  onUpdateTask: PropTypes.func,
+  onToggle: PropTypes.func,
+  keySearch: PropTypes.string.isRequired,
+  keySort: PropTypes.string.isRequired,
+};
+
+TaskList.defaultProps = {
+  onDeleteTask: null,
+  onUpdateTask: null,
+  onToggle: null,
+};
 
 export default TaskList;
