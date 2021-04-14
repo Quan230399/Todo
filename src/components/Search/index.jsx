@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
-import PropTypes from "prop-types";
-import "./index.css";
+import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
+import './index.css';
 
 Search.propTypes = {
   onSearch: PropTypes.func,
@@ -20,7 +20,7 @@ function Search(props) {
     const value = e.target.value;
     if (!onSearch) return;
 
-    if(typingTimeoutRef.current){
+    if (typingTimeoutRef.current) {
       clearTimeout(typingTimeoutRef.current);
     }
 

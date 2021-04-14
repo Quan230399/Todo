@@ -1,5 +1,5 @@
-import React, {  useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import './index.css';
 
 ItemList.propTypes = {
@@ -30,7 +30,6 @@ function ItemList(props) {
       onDeleteItem(task);
     } else {
     }
-    
   };
 
   const onUpdate = (task) => {
@@ -47,19 +46,23 @@ function ItemList(props) {
   const status = (task) => {
     return (
       <span>
-        {task.status === true || task.status === "true" ? <span className='success'>Kích hoạt</span> : <span className='waring'>Ẩn</span>}
+        {task.status === true || task.status === 'true' ? (
+          <span className="success">Kích hoạt</span>
+        ) : (
+          <span className="waring">Ẩn</span>
+        )}
       </span>
     );
   };
 
   return (
     <tr>
-      <td style={{ width: "10%" }}>{index + 1}</td>
-      <td style={{ width: "40%" }}>{task.name}</td>
-      <td style={{ width: "20%" }} onClick={() => onToggle(task)}>
+      <td style={{ width: '10%' }}>{index + 1}</td>
+      <td style={{ width: '40%' }}>{task.name}</td>
+      <td style={{ width: '20%' }} onClick={() => onToggle(task)}>
         {status(task)}
       </td>
-      <td style={{ width: "30%" }}>
+      <td style={{ width: '30%' }}>
         <a type="submit" className="btn btn-warning" onClick={() => onUpdate(task)}>
           Sửa
         </a>

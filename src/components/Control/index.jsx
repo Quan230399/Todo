@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Search from "../Search";
-import Sort from "../Sort";
-import "./index.css";
-import AddTask from "../AddTask";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Search from '../Search';
+import Sort from '../Sort';
+import './index.css';
+import AddTask from '../AddTask';
 
 Control.propTypes = {
   onToggleForm: PropTypes.func,

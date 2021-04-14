@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import "./index.css";
-import ItemList from "../ListItem";
+import React from 'react';
+import PropTypes from 'prop-types';
+import './index.css';
+import ItemList from '../ListItem';
 
 TaskList.propTypes = {
   taskList: PropTypes.array.isRequired,
@@ -19,14 +19,7 @@ TaskList.defaultProps = {
 };
 
 function TaskList(props) {
-  const {
-    taskList,
-    onDeleteTask,
-    onUpdateTask,
-    onToggle,
-    keySearch,
-    keySort,
-  } = props;
+  const { taskList, onDeleteTask, onUpdateTask, onToggle, keySearch, keySort } = props;
 
   const onDelete = (task) => {
     if (!onDeleteTask) return;
@@ -44,10 +37,10 @@ function TaskList(props) {
   };
 
   let taskSort = taskList.sort((x, y) => {
-    if(keySort==='ẩn') return x.status- y.status;
-    if(keySort==='kích hoạt') return y.status- x.status;
-    if(keySort==='az') return x.name.localeCompare(y.name);
-    if(keySort==='za') return y.name.localeCompare(x.name);
+    if (keySort === 'ẩn') return x.status - y.status;
+    if (keySort === 'kích hoạt') return y.status - x.status;
+    if (keySort === 'az') return x.name.localeCompare(y.name);
+    if (keySort === 'za') return y.name.localeCompare(x.name);
     return 0;
   });
 
@@ -75,16 +68,16 @@ function TaskList(props) {
       <table className="table table-bordered table-hover">
         <thead>
           <tr>
-            <th className="text-center" style={{ width: "10%" }}>
+            <th className="text-center" style={{ width: '10%' }}>
               STT
             </th>
-            <th className="text-center" style={{ width: "40%" }}>
+            <th className="text-center" style={{ width: '40%' }}>
               Tên
             </th>
-            <th className="text-center" style={{ width: "20%" }}>
+            <th className="text-center" style={{ width: '20%' }}>
               Trạng Thái
             </th>
-            <th className="text-center" style={{ width: "30%" }}>
+            <th className="text-center" style={{ width: '30%' }}>
               Hành Động
             </th>
           </tr>

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import "./index.css";
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import './index.css';
 
 TaskFrom.propTypes = {
   onCancelForm: PropTypes.func,
@@ -17,8 +17,8 @@ TaskFrom.defaultProps = {
 
 function TaskFrom(props) {
   const [valueForm, setvalueForm] = useState({
-    id: "",
-    name: "",
+    id: '',
+    name: '',
     status: true,
   });
 
@@ -38,7 +38,7 @@ function TaskFrom(props) {
   const handleChange = (e) => {
     let target = e.target;
     let name = target.name;
-    let value = target.value === "false" ? false : target.value;
+    let value = target.value === 'false' ? false : target.value;
     setvalueForm({
       ...valueForm,
       [name]: value,
@@ -49,8 +49,8 @@ function TaskFrom(props) {
     if (!onCancelForm) return;
     onCancelForm();
     setvalueForm({
-      id: "",
-      name: "",
+      id: '',
+      name: '',
       status: true,
     });
   };
@@ -60,8 +60,8 @@ function TaskFrom(props) {
     // console.log(valueForm);
     onSubmit(valueForm);
     setvalueForm({
-      id: "",
-      name: "",
+      id: '',
+      name: '',
       status: true,
     });
   };
@@ -82,7 +82,7 @@ function TaskFrom(props) {
             <div className="form-group">
               <label>Tên :</label>
               <input
-                style={{ height: "30px" }}
+                style={{ height: '30px' }}
                 type="text"
                 className="form-control"
                 name="name"
@@ -92,7 +92,7 @@ function TaskFrom(props) {
             </div>
             <label>Trạng Thái :</label>
             <select
-              className="form-control"  
+              className="form-control"
               name="status"
               value={valueForm.status}
               onChange={handleChange}
@@ -104,13 +104,9 @@ function TaskFrom(props) {
             <div className="text-center">
               <button type="submit" className="btn btn-warning">
                 <span className="fa fa-plus mr-5"></span>
-                {valueForm.id===''?'Thêm':'Lưu lại'}
+                {valueForm.id === '' ? 'Thêm' : 'Lưu lại'}
               </button>
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={onCancel}
-              >
+              <button type="button" className="btn btn-danger" onClick={onCancel}>
                 <span className="fa fa-close mr-5"></span>Hủy Bỏ
               </button>
             </div>
