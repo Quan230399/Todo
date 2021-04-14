@@ -5,18 +5,6 @@ import Sort from "../Sort";
 import "./index.css";
 import AddTask from "../AddTask";
 
-Control.propTypes = {
-  onToggleForm: PropTypes.func,
-  onSearch: PropTypes.func,
-  onSort: PropTypes.func,
-};
-
-Control.defaultProps = {
-  onToggleFrom: null,
-  onSearch: null,
-  onSort: null,
-};
-
 function Control(props) {
   const { onToggleForm, onSearch, onSort } = props;
 
@@ -32,14 +20,25 @@ function Control(props) {
   return (
     <div className="control_form">
       <div className="add">
-        <AddTask onToggle={onToggle}></AddTask>
+        <AddTask onToggle={onToggle} />
       </div>
       <div className="search-sort">
-        <Search onSearch={onSearch}></Search>
-        <Sort onSort={onSortKey}></Sort>
+        <Search onSearch={onSearch} />
+        <Sort onSort={onSortKey} />
       </div>
     </div>
   );
 }
+
+Control.propTypes = {
+  onToggleForm: PropTypes.func.isRequired,
+  onSearch: PropTypes.func,
+  onSort: PropTypes.func,
+};
+
+Control.defaultProps = {
+  onSearch: null,
+  onSort: null,
+};
 
 export default Control;
