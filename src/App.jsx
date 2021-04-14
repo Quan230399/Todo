@@ -103,14 +103,17 @@ function App() {
   };
 
   const onDelete = (task) => {
-    const index = findIn(task.id);
-    const tasks = taskList;
-    if (index !== -1) {
-      tasks.splice(index, 1);
+    const check = window.confirm("Bạn muốn có chắc muốn xóa");
+    if (check) {
+      const index = findIn(task.id);
+      const tasks = taskList;
+      if (index !== -1) {
+        tasks.splice(index, 1);
+      }
+      settaskList(tasks);
+      settaskItem(task);
+      localStorage.setItem("tasks", JSON.stringify(taskList));
     }
-    settaskList(tasks);
-    settaskItem(task);
-    localStorage.setItem("tasks", JSON.stringify(taskList));
   };
 
   const onUpdate = (task) => {
