@@ -17,7 +17,7 @@ td {
 
 .text-center{
   text-align: center;
-} 
+}
 
 .form-list{
     text-align: center;
@@ -32,4 +32,9 @@ td {
     border: 1px solid #ccc;
     border-radius: 4px;
     margin: 10px 10px;
+}
+@media (max-width: 420px) {
+  .table-bordered {
+    font-size: 10px;
+  }
 }

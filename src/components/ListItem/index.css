@@ -11,3 +11,10 @@
   padding: 5px;
   color: white;
 }
+
+
+@media (max-width: 420px) {
+  .status{
+    font-size: 10px;
+  }
+}

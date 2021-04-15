@@ -4,7 +4,7 @@
 }
 .input-group{
 	width: 50%;
-    
+
 }
 .input-group-float{
 	display: flex;
@@ -28,3 +28,13 @@
 	position:relative;
 	top:1px;
 }
+
+@media (max-width: 420px){
+  .input-group-float .form-control{
+    font-size: 10px;
+    height: 26.5px;
+    margin-top: 0.5px;
+  }
+
+}
+
