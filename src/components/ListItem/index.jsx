@@ -1,8 +1,9 @@
-import React, {  useState } from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
+import "./index.css";
 
 function ItemList(props) {
-  const { task, index, onDeleteItem, onUpdateItem, onToggleStatus } = props;
+  const {task, index, onDeleteItem, onUpdateItem, onToggleStatus} = props;
   // eslint-disable-next-line no-unused-vars
   const [, setstatusItem] = useState();
 
@@ -26,30 +27,33 @@ function ItemList(props) {
   };
 
   const status = (myTask) => (
-      <span>
-        {myTask.status === true || myTask.status === "true" ? "Kích hoạt" : "Ẩn"}
-      </span>
-    );
+    <span>
+      {myTask.status === true || myTask.status === "true" ? (
+        <span className="success">Kích hoạt</span>
+      ) : (
+        <span className="waring">Ẩn</span>
+      )}
+    </span>
+  );
 
   return (
     <tr>
-      <td style={{ width: "10%" }}>{index + 1}</td>
-      <td style={{ width: "40%" }}>{task.name}</td>
-      <td style={{ width: "20%" }} onClick={() => onToggle(task)} aria-hidden="true">
+      <td style={{width: "10%"}}>{index + 1}</td>
+      <td style={{width: "40%"}}>{task.name}</td>
+      <td style={{width: "20%"}} onClick={() => onToggle(task)} aria-hidden="true">
         {status(task)}
       </td>
-      <td style={{ width: "30%" }}>
-        <button  type="submit" className="btn btn-warning" onClick={() => onUpdate(task)}>
+      <td style={{width: "30%"}}>
+        <button type="submit" className="btn btn-warning" onClick={() => onUpdate(task)}>
           Sửa
         </button>
-        <button  type="button" className="btn btn-danger" onClick={() => onDelete(task)}>
+        <button type="button" className="btn btn-danger" onClick={() => onDelete(task)}>
           Xóa
         </button>
       </td>
     </tr>
   );
 }
-
 
 ItemList.propTypes = {
   task: PropTypes.instanceOf(Object).isRequired,

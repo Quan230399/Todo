@@ -40,17 +40,18 @@ function TaskFrom(props) {
     setvalueForm({
       id: "",
       name: "",
+      nameSlugs: "",
       status: true,
     });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log(valueForm);
     onSubmit(valueForm);
     setvalueForm({
       id: "",
       name: "",
+      nameSlugs: "",
       status: true,
     });
   };

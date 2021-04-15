@@ -1,9 +1,14 @@
+
 import React, {useEffect, useState} from "react";
+import slugsString from "slug";
+import Snackbar from "@material-ui/core/Snackbar";
 import Control from "./components/Control";
 import Header from "./components/Header";
 import TaskFrom from "./components/TaskForm";
 import TaskList from "./components/TaskList";
 import "./App.css";
+import Alert from "./components/Alert";
+
 
 const randomstring = require("randomstring");
 
@@ -15,6 +20,9 @@ function App() {
   const [itemUpdate, setitemUpdate] = useState();
   const [Key, setKey] = useState("");
   const [keySort, setkeySort] = useState("");
+  const [open, setopen] = useState(false);
+  const [nameTitle, setnameTitle] = useState("");
+  const [statusAlert, setstatusAlert] = useState("");
 
   const findIn = (id) => {
     // console.log(id);
@@ -39,57 +47,61 @@ function App() {
     setitemUpdate();
   };
 
-  const slugs = (name) => {
-    let slug = name.toLowerCase();
 
-    slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, "a");
-    slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, "e");
-    slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, "i");
-    slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, "o");
-    slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, "u");
-    slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, "y");
-    slug = slug.replace(/đ/gi, "d");
-    slug = slug.replace(
-      /\\`|\\~|\\!|\\@|\\#|\||\$|\\%|\^|\\&|\*|\(|\)|\+|\\=|\\,|\.|\/|\?|\\>|\\<|\\'|\\"|\\:|\\;|_/gi,
-      ""
-    );
-    slug = slug.replace(/ /gi, "-");
-    slug = slug.replace(/\\-\\-\\-\\-\\-/gi, "-");
-    slug = slug.replace(/\\-\\-\\-\\-/gi, "-");
-    slug = slug.replace(/\\-\\-\\-/gi, "-");
-    slug = slug.replace(/\\-\\-/gi, "-");
-    // slug = '@' + slug + '@';
-    slug = slug.replace(/\\@\\-|\\-\\@|\\@/gi, "");
-
-    return slug;
-  };
-
-  const tasksListSlugs = taskList.map((task) => slugs(task.name));
-  console.log(tasksListSlugs);
+  const tasksListSlugs = taskList.map((task) => slugsString(task.name));
 
   const onSubmit = (data) => {
     const tasks = taskList;
     if (data.id === "") {
       if (data.name !== "") {
-        if (!tasksListSlugs.includes(slugs(data.name))) {
-          const myData = {...data, id: randomstring.generate(7)};
+        if (!tasksListSlugs.includes(slugsString(data.name))) {
+          const myData = {
+            ...data,
+            id: randomstring.generate(7),
+            nameSlugs: slugsString(data.name),
+          };
           tasks.push(myData);
           settaskList(tasks);
           settaskItem(myData);
+          setkeySort("");
+          setopen(true);
+          setnameTitle("Thêm thành công");
+          setstatusAlert("success");
+          setTimeout(() => {
+            setopen(false);
+          }, 2000);
           localStorage.setItem("tasks", JSON.stringify(taskList));
-          alert("Thêm thành công !");
         } else {
-          alert("Tên công việc đã tồn tại");
+          setopen(true);
+          setnameTitle("Công việc đã tồn tại");
+          setstatusAlert("warning");
+          setTimeout(() => {
+            setopen(false);
+          }, 2000);
         }
       } else {
-        alert("Bạn chưa nhập tên");
+        setopen(true);
+        setnameTitle("Bạn chưa nhập tên");
+        setstatusAlert("warning");
+        setTimeout(() => {
+          setopen(false);
+        }, 2000);
       }
     } else {
       const index = findIn(data.id);
-      tasks[index] = data;
+      const myUpdate = {
+        ...data,
+        nameSlugs: slugsString(data.name),
+      };
+      tasks[index] = myUpdate;
       settaskList(tasks);
+      setopen(true);
+      setnameTitle("Chỉnh sửa thành công");
+      setstatusAlert("success");
+      setTimeout(() => {
+        setopen(false);
+      }, 2000);
       localStorage.setItem("tasks", JSON.stringify(taskList));
-      alert("Chỉnh sửa thành công !");
     }
     onCancel();
   };
@@ -123,7 +135,7 @@ function App() {
   };
 
   const onSearch = (key) => {
-    setKey(key);
+    setKey(slugsString(key));
   };
 
   const onSort = (key) => {
@@ -159,6 +171,9 @@ function App() {
           <br />
         </div>
       </div>
+      <Snackbar open={open}>
+        <Alert name={nameTitle} status={statusAlert} />
+      </Snackbar>
     </div>
   );
 }

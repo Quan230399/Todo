@@ -1,0 +1,13 @@
+.success{
+  background-color:#d9534f;
+  border-radius: 5px;
+  padding: 5px;
+  color: white;
+}
+
+.waring{
+  background-color: #2596be;
+  border-radius: 5px;
+  padding: 5px;
+  color: white;
+}
