@@ -1,26 +1,32 @@
-
-import React, { useRef } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import "./index.css";
+import debounce from "lodash.debounce";
+// let debounce = require('lodash.debounce');
 
 function Search(props) {
+  const {onSearch} = props;
+  // const typingTimeoutRef = useRef();
 
-  const {onSearch}= props;
-  const typingTimeoutRef  = useRef();
+  const depouceSearch = debounce((value) => {
+    // console.log(value);
+    onSearch(value);
+  }, 500,[]);
 
-  const handleChange=(e)=>{
+  const handleChange = (e) => {
     // console.log(e.target.value);
-   const {value} = e.target;
+    const {value} = e.target;
 
-   if(!onSearch) return;
+    depouceSearch(value);
 
-    if (typingTimeoutRef.current) {
-      clearTimeout(typingTimeoutRef.current);
-    }
+    // if (!onSearch) return;
 
-    typingTimeoutRef.current = setTimeout(() => {
-      onSearch(value);
-    }, 500);
+    // if (typingTimeoutRef.current) {
+    //   clearTimeout(typingTimeoutRef.current);
+    // }
+    // typingTimeoutRef.current = setTimeout(() => {
+
+    // }, 500);
   };
 
   return (
@@ -32,9 +38,11 @@ function Search(props) {
           placeholder="Nhập từ khóa"
           name="keywork"
           onChange={handleChange}
-         />
+        />
         <span className="input-btn">
-          <button type="button" className="btn-search btn btn-danger">Tìm kiếm</button>
+          <button type="button" className="btn-search btn btn-danger">
+            Tìm kiếm
+          </button>
         </span>
       </div>
     </div>
@@ -42,11 +50,11 @@ function Search(props) {
 }
 
 Search.propTypes = {
-  onSearch: PropTypes.func
+  onSearch: PropTypes.func,
 };
 
-Search.defaultProps={
+Search.defaultProps = {
   onSearch: null,
-}
+};
 
 export default Search;
