@@ -21,6 +21,7 @@ function TaskList(props) {
     onToggle(task);
   };
 
+
   const taskSort = taskList.sort((x, y) => {
     if (keySort === "ẩn") return x.status - y.status;
     if (keySort === "kích hoạt") return y.status - x.status;
@@ -29,9 +30,7 @@ function TaskList(props) {
     return 0;
   });
 
-
   const tasks = taskSort.filter((task) => task.nameSlugs.includes(keySearch));
-
 
   const element = tasks.map((task, index) => (
     <ItemList
@@ -63,9 +62,7 @@ function TaskList(props) {
             </th>
           </tr>
         </thead>
-        <tbody>
-          {element}
-        </tbody>
+        <tbody>{element}</tbody>
       </table>
     </div>
   );

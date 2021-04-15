@@ -1,4 +1,3 @@
-
 import React, {useEffect, useState} from "react";
 import slugsString from "slug";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -8,7 +7,6 @@ import TaskFrom from "./components/TaskForm";
 import TaskList from "./components/TaskList";
 import "./App.css";
 import Alert from "./components/Alert";
-
 
 const randomstring = require("randomstring");
 
@@ -47,45 +45,43 @@ function App() {
     setitemUpdate();
   };
 
+  const openAlert = () => {
+    setopen(true);
+    setTimeout(() => {
+      setopen(false);
+    }, 2000);
+  };
 
-  const tasksListSlugs = taskList.map((task) => slugsString(task.name));
+  const tasksListSlugs = taskList.map((task) => slugsString(task.name.trim()));
 
   const onSubmit = (data) => {
     const tasks = taskList;
     if (data.id === "") {
       if (data.name !== "") {
-        if (!tasksListSlugs.includes(slugsString(data.name))) {
+        if (!tasksListSlugs.includes(slugsString(data.name.trim()))) {
           const myData = {
             ...data,
             id: randomstring.generate(7),
-            nameSlugs: slugsString(data.name),
+            nameSlugs: slugsString(data.name.trim()),
           };
           tasks.push(myData);
           settaskList(tasks);
           settaskItem(myData);
           setkeySort("");
-          setopen(true);
+          openAlert();
           setnameTitle("Thêm thành công");
           setstatusAlert("success");
-          setTimeout(() => {
-            setopen(false);
-          }, 2000);
+
           localStorage.setItem("tasks", JSON.stringify(taskList));
         } else {
-          setopen(true);
           setnameTitle("Công việc đã tồn tại");
           setstatusAlert("warning");
-          setTimeout(() => {
-            setopen(false);
-          }, 2000);
+          openAlert();
         }
       } else {
-        setopen(true);
         setnameTitle("Bạn chưa nhập tên");
         setstatusAlert("warning");
-        setTimeout(() => {
-          setopen(false);
-        }, 2000);
+        openAlert();
       }
     } else {
       const index = findIn(data.id);
@@ -95,12 +91,9 @@ function App() {
       };
       tasks[index] = myUpdate;
       settaskList(tasks);
-      setopen(true);
       setnameTitle("Chỉnh sửa thành công");
       setstatusAlert("success");
-      setTimeout(() => {
-        setopen(false);
-      }, 2000);
+      openAlert();
       localStorage.setItem("tasks", JSON.stringify(taskList));
     }
     onCancel();

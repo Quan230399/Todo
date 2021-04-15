@@ -18,3 +18,31 @@
   margin: 0px 30px;
 }
 
+@media (max-width: 420px) {
+  .task{
+    display: flex;
+    margin: 0px 0px;
+    flex-direction: column-reverse;
+  }
+
+  .task-list-100{
+    margin: 0px 0px;
+  }
+
+  .main{
+    padding: 5px;
+  }
+
+  .task-form{
+    width: 100%;
+    margin: 0px 0px;
+    box-sizing: border-box;
+  }
+
+  .task-list-66{
+    width: 100%;
+    margin: 0px 0px;
+  }
+
+}
+

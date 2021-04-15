@@ -29,9 +29,9 @@ function ItemList(props) {
   const status = (myTask) => (
     <span>
       {myTask.status === true || myTask.status === "true" ? (
-        <span className="success">Kích hoạt</span>
+        <span className="status success">Kích hoạt</span>
       ) : (
-        <span className="waring">Ẩn</span>
+        <span className="status waring">Ẩn</span>
       )}
     </span>
   );
