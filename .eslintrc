@@ -7,7 +7,7 @@
       "ecmaVersion": 2020,
       "ecmaFeatures": {
         "experimentalObjectRestSpread": true
-      },
+      }
     },
     "extends": [
       "airbnb",
